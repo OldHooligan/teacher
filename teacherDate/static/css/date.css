@@ -1,0 +1,100 @@
+#cldFrame{
+    position: relative;
+    width: 1040px;
+    margin: 50px auto;
+}
+#cldBody{
+    margin: 10px;
+    position: absolute;
+    width: 1020px;
+}
+#top{
+    position: relative;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+}
+#topDate{
+    font-size: 30px;
+}
+.curDate{
+    color: red;
+    font-weight: bold;
+}
+.date_table{
+    background-color: #f7f7f7;
+    width: 1020px;
+}
+#week td{
+    font-size: 15px;
+}
+td{
+    height: 60px;
+    width: 60px;
+    text-align: center;
+    font-family: Simsun;
+    font-size: 20px;
+}
+#left, #right{
+    position: absolute;
+    width: 60px;
+    height: 60px;
+}
+#left{left: 0px;}
+#right{right: 0px;}
+#left:hover, #right:hover{
+    background-color: rgba(30, 30, 30, 0.2);
+}
+
+#classList{
+    width: 1020px;
+    height: 700px;
+    position: relative;
+    top: 465px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.select_time{//添加课程
+    display: block; margin-left: auto; margin-right: auto; width: 300px; height: 30px;
+}
+
+#add_class {
+    visibility: hidden;
+    background-color: #d7e9d6;
+    z-index: 9999;
+    width: 1000px;
+    height: 500px;
+    position: absolute;
+    left: 50%;
+    top: 5%;
+    margin: -20px 0 0 -500px
+}
+#select_time_1{
+    margin-left:100px;
+    margin-top:200px;
+}
+
+.add{
+    width:100px;
+    height:40px
+}
+
+.curDate:hover{text-decoration: none;color: #66ff2b}
+.isDate:hover{text-decoration: none;color:#66ff2b}
+.haveclass{color: #325fe9}
+
+#gw{
+    position: fixed;
+    top: 70%;
+    left: 50%;
+    min-width: 200px;
+    margin-left: -100px;
+    z-index: 99999;
+    padding: 15px;
+    border-radius: 4px;
+    color: #760009;
+    background-color: #ebf0e6;
+    border-color: #e9d500;
+}

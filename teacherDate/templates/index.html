@@ -1,0 +1,21 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/Login.css"/>
+
+</head>
+<body>
+    <div id="login">
+        <h1>Login</h1>
+        <form method="post" >  <!--        action="verification"-->
+            <input type="text" required="required" placeholder="用户名" name="u" id="username"></input>
+            <input type="password" required="required" placeholder="密码" name="p" id="passwd"></input>
+            <input class="but" type="button" onclick="checkUser()" value="提交" id="subim">
+        </form>
+    </div>
+    <div id="gw" class="alert"><html>账户或密码错误!</html></div>
+</body>
+ <script src='../static/js/index.js'></script>
+<script src='../static/js/jquery.min.js'></script>
+</html>

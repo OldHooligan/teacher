@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>课程记录</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/date.css"/>
+    <script src='../static/js/jquery.min.js'></script>
+    <script src="../static/js/laydate/laydate.js"></script>
+</head>
+<body>
+    <div>
+       <span style="color: #000000">{{ name|safe}}老师您好！</span>
+    </div>
+    <div id="add_class" >
+            <input type="text" class="select_time" id="select_time_1" name="section" placeholder="请选择起始时间-">
+            <input type="text" class="select_time" id="select_time_2" name="note" placeholder="备注：">
+            <button onclick="submin_add_class()"  class="add">确定</button>
+            <button onclick="hidden_add_class()" class="add">取消</button>
+    </div>
+    <div id="cldFrame">
+        <div id="cldBody">
+            <table class="date_table">
+                <thead>
+                    <tr>
+                        <td colspan="7">
+                            <div id="top">
+                                <span id="left">&lt;</span>
+                                <span id="topDate"></span>
+                                <span id="right">&gt;</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="week">
+                        <td>日</td>
+                        <td>一</td>
+                        <td>二</td>
+                        <td>三</td>
+                        <td>四</td>
+                        <td>五</td>
+                        <td>六</td>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id = "classList">
+        <table cellpadding="0" cellspacing="0" border="0" id="news_table" class="date_table" style="table-layout:fixed;">
+              <thead>
+                  <tr>
+                      <th style="white-space: nowrap;text-align:center;width: 80px;font-weight: 900;">操作</th>
+                      <th style="white-space: nowrap;text-align:center;width: 200px;font-weight: 900;">开始时间</th>
+                      <th style="white-space: nowrap;text-align:center;width: 200px;font-weight: 900;">结束时间</th>
+                      <th style="white-space: nowrap;text-align:center;width: 100px;font-weight: 900;">课时(小时)</th>
+                      <th style="white-space: nowrap;text-align:center;width: auto;font-weight: 900;">备注</th>
+                  </tr>
+                </thead>
+        </table>
+          <table>
+              <thead>
+                  <tr>
+                      <th style="white-space: nowrap;text-align:center;width: 920px;font-weight: 900;color: #0740e9;" ><input style="font-size: 30px" type="button" id="add_btn" value="新增" onclick="click_add()" ></th>
+                  </tr>
+                </thead>
+        </table>
+    </div>
+    <div id="gw" style="visibility: hidden;"><html>添加成功!</html></div>
+<!--    <script src='../static/js/date.js'></script>-->
+</body>
+    <script src='../static/js/date.js' data="{{ class_data_list|safe}}" uid="{{ uid|safe}}"></script>
+</html>
