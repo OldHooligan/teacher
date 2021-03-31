@@ -111,12 +111,12 @@ function click_update_background_color(x){
     //日期点击后改变背景色
  // 这个是判断第一次点击
   if(x==1&&t==1){
-        document.getElementById(x).style.background="#4f7de9";
+        document.getElementById(x).style.background="#8f918f";
   }
    // 这个判断是防止重复点击
   else if(x!=t){
         document.getElementById(t).style.background="#f7f7f7";
-        document.getElementById(x).style.background="#4f7de9";
+        document.getElementById(x).style.background="#8f918f";
   }
   t=x;
 }
@@ -166,10 +166,10 @@ function add_table_tr(dat=null) {
             $("#news_table").append(
                 '<tr>' +
                 '<td style="white-space: nowrap;text-align:center;width: 80px;"><input style="font-size: 15px" type="button" id="item_del" value="删除" itemid="'+item[0]+'" itkey="'+dat+'" onclick="delete_one_class(this)"></th>' +
-                '<td style="white-space: nowrap;text-align:center;width: 200px;color: #4ee93c" >' + item[3].split(' ')[1] + '</td>' +
-                '<td style="white-space: nowrap;text-align:center;width: 200px;color: #4ee93c" >' + item[4].split(' ')[1] + '</td>' +
-                '<td style="hite-space: nowrap;text-align:center;width: 100px;color: #4ee93c" >' + time_diff + '</td>' +
-                '<td style="white-space: nowrap;text-align:center;width: auto;color: #4ee93c;word-wrap:break-word;word-break:break-all;" >' + item[5] + '</td>' +
+                '<td style="white-space: nowrap;text-align:center;width: 200px;color: #000f91" >' + item[3].split(' ')[1] + '</td>' +
+                '<td style="white-space: nowrap;text-align:center;width: 200px;color: #000f91" >' + item[4].split(' ')[1] + '</td>' +
+                '<td style="hite-space: nowrap;text-align:center;width: 100px;color: #000f91" >' + time_diff + '</td>' +
+                '<td style="white-space: nowrap;text-align:center;width: auto;color: #000f91;word-wrap:break-word;word-break:break-all;" >' + item[5] + '</td>' +
                 '</tr>');
         }
     }
