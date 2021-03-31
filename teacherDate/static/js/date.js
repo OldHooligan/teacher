@@ -220,8 +220,9 @@ function diffTime(time1, time2) {
     var n = min2 - min1;
     //将日期和时间两个部分计算出来的差值相加，即得到两个时间相减后的分钟数
     var minutes = m + n;
-    var result = minutes / 60;
-    result = result.toFixed(4);
+    //var result = minutes / 60;
+    var result = (Math.floor(minutes/60) + "小时" + (minutes%60) + "分" );
+    //result = result.toFixed(4);
     return result
 }
 

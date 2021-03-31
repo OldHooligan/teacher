@@ -5,7 +5,13 @@
 # @File    : JJInterface.py
 # @Software: PyCharm
 import os
-import threading
+import os
+import sys
+curPath = os.path.abspath(os.path.dirname(__file__))
+print(curPath)
+rootPath = os.path.split(curPath)[0] + '/'
+print(rootPath)
+sys.path.append(os.path.split(rootPath)[0])
 
 from flask import Flask, request, jsonify, render_template
 
@@ -92,4 +98,4 @@ def insert():
 
 if __name__ == '__main__':
     # 启动服务 指定主机和端口
-    app.run(host='0.0.0.0', port=19999, debug=True)
+    app.run(host='192.168.199.201', port=19999, debug=True)
