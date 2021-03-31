@@ -98,4 +98,4 @@ def insert():
 
 if __name__ == '__main__':
     # 启动服务 指定主机和端口
-    app.run(host='192.168.199.201', port=19999, debug=True)
+    app.run(host='0.0.0.0', port=19999, debug=True)
