@@ -40,7 +40,7 @@ onmessage = function (e) {
 
 
 /*显示日历*/
-function showCld(year, month, firstDay) {
+function showCld(year, month, firstDay, time_sum) {
     var i;
     var tagClass = "";
     var nowDate = new Date();
@@ -193,8 +193,7 @@ function delete_one_class(obj){
 * 事例：diffTime(data.createTime,new Date())
 *
 * */
-function diffTime_minutes(time1, time2) {
-
+function diffTime(time1, time2) {
     //判断开始时间是否大于结束日期
     if (time1 > time2) {
         alert("开始时间不能大于结束时间！");
@@ -220,14 +219,8 @@ function diffTime_minutes(time1, time2) {
     var n = min2 - min1;
     //将日期和时间两个部分计算出来的差值相加，即得到两个时间相减后的分钟数
     var minutes = m + n;
-    //var result = minutes / 60;
-    //result = result.toFixed(4);
-    return minutes
-}
-
-function diffTime(time1, time2) {
-    var minutes = diffTime_minutes(time1, time2);
-    var result = (Math.floor(minutes/60) + "小时" + (minutes%60) + "分" );
+    // var result = (Math.floor(minutes/60) + "小时" + (minutes%60) + "分" +"("+minutes+"分钟"+")");
+    var result = minutes+"分钟";
     return result
 }
 
@@ -286,6 +279,11 @@ laydate.render({ // 时间范围选择器
             , type: 'time'
             ,range: true
         });
+
+function calculate_time_sum() {
+//    计算这个月的时间总和
+
+}
 
 var curDate = new Date();
 var curYear = curDate.getFullYear();

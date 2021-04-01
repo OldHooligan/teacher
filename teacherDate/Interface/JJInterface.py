@@ -44,16 +44,25 @@ def verification():
     print('-*-*-',flag)
     return jsonify(flag)
 
-@app.route('/getclass', methods=['post'])
+@app.route('/get_mounth_class_minutes', methods=['post'])
+def get_mounth_class_minutes():
+    uid = request.form.get('uid')
+    date = request.form.get('date')
+    print(uid, date)
+
+@app.route('/getclass', methods=['post','get'])
 def getclass():
     """
     登录成功后,根据uid查询出这个uid的所有课程数据
     :return:
     """
     uid = request.form.get('uid')
-    print("收到uid:",uid)
-    class_list = sqllitDBHelper().select_user_news(uid)
-    return render_template('timeSheet.html', class_data_list=class_list,name=request.form.get('name'),uid=request.form.get('uid'))
+    if uid:
+        print("收到uid:",uid)
+        class_list = sqllitDBHelper().select_user_news(uid)
+        return render_template('timeSheet.html', class_data_list=class_list,name=request.form.get('name'),uid=request.form.get('uid'))
+    else:
+        return render_template('index.html')
 
 # @app.route('/getclassbyday', methods=['post'])
 # def getclassbyday():
