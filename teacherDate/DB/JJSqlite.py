@@ -108,7 +108,7 @@ class sqllitDBHelper():
             str = note.replace(stuff, "")
         return note
 
-    def select_user_news(self, uid, date_mounth=datetime.datetime.now().strftime('%Y-%m')):
+    def select_user_news(self, uid, date_mounth="202"):
         """查询上课记录"""
         cursor = self.conn.cursor()
         sql = f"select * from teachertiming where uid='{uid}' and class_date like '{date_mounth}%';"

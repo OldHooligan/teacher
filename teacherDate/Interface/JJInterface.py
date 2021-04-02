@@ -44,11 +44,15 @@ def verification():
     print('-*-*-',flag)
     return jsonify(flag)
 
-@app.route('/get_mounth_class_minutes', methods=['post'])
-def get_mounth_class_minutes():
-    uid = request.form.get('uid')
-    date = request.form.get('date')
-    print(uid, date)
+# @app.route('/get_mounth_class_minutes', methods=['post'])
+# def get_mounth_class_minutes():
+#     uid = request.form.get('uid')
+#     curYear = request.form.get('curYear')
+#     curMonth = request.form.get('curMonth')
+#     if len(curMonth) == 1:
+#         curMonth = '0'+curMonth
+#     class_list = sqllitDBHelper().select_user_news(uid, curYear+'-'+curMonth)
+#     return jsonify(class_list)
 
 @app.route('/getclass', methods=['post','get'])
 def getclass():

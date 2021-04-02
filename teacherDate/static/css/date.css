@@ -1,12 +1,13 @@
 #cldFrame{
     position: relative;
-    width: 1040px;
+    width: 1060px;
     margin: 50px auto;
 }
 #cldBody{
     margin: 10px;
     position: absolute;
     width: 1020px;
+    height: 510px;
 }
 #top{
     position: relative;
@@ -25,7 +26,10 @@
 .date_table{
     background:rgba(0,0,0,0.1);
     width: 1020px;
+}
 
+#date_list{
+    height: 510px;
 }
 #week td{
     font-size: 15px;
@@ -54,7 +58,7 @@ td{
     width: 1020px;
     height: 700px;
     position: relative;
-    top: 465px;
+    top: 521px;
     margin-left: auto;
     margin-right: auto;
 }

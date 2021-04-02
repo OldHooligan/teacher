@@ -38,9 +38,24 @@ onmessage = function (e) {
     // alert(class_list);
 };
 
+function calculate_tigme_sum(curYear, curMonth) {
+    if (curMonth.length == 1){
+        curMonth = '0'+curMonth
+    }
+    var keys = Object.keys(class_dict);
+    var now_date = curYear + '-' + curMonth;
+    for (i = 0; i < keys.length; i++) {
+        if (keys[i].indexOf(now_date) != -1) {
+            alert(class_dict[keys[i]])
+        }
+    }
+
+
+};
+
 
 /*显示日历*/
-function showCld(year, month, firstDay, time_sum) {
+function showCld(year, month, firstDay) {
     var i;
     var tagClass = "";
     var nowDate = new Date();
@@ -111,12 +126,12 @@ function click_update_background_color(x){
     //日期点击后改变背景色
  // 这个是判断第一次点击
   if(x==1&&t==1){
-        document.getElementById(x).style.background="#8f918f";
+        document.getElementById(x).style.background="rgba(67,101,87,0.29)";
   }
    // 这个判断是防止重复点击
   else if(x!=t){
         document.getElementById(t).style.background="transparent";
-        document.getElementById(x).style.background="#8f918f";
+        document.getElementById(x).style.background="rgba(67,101,87,0.29)";
   }
   t=x;
 }
@@ -280,16 +295,13 @@ laydate.render({ // 时间范围选择器
             ,range: true
         });
 
-function calculate_time_sum() {
-//    计算这个月的时间总和
 
-}
+
 
 var curDate = new Date();
 var curYear = curDate.getFullYear();
 var curMonth = curDate.getMonth() + 1;
 showCld(curYear, curMonth, whatDay(curYear, curMonth));
-
 document.getElementById('right').onclick = function () {
     nextMonth();
 };
