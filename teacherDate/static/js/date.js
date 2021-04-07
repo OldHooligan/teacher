@@ -89,7 +89,6 @@ function showCld(year, month, firstDay) {
     var now_month = true;
     for (i = 1; i <= days; i++) {//每一个日期的填充
         var dat = year + '-' + (Array(2).join(0) + month).slice(-2) + '-' + (Array(2).join(0) + i).slice(-2); //格式化这一天的日期，接下来作为key取值
-        console.log(year,month);
         if (year == nowDate.getFullYear() && month == nowDate.getMonth() + 1 && i == nowDate.getDate()) {
             tagClass = "curDate";//当前日期对应格子
             now_click_date = dat; //标记当前所在位置日期
@@ -121,6 +120,9 @@ function showCld(year, month, firstDay) {
         clear_table();//先清空表数据，再重新加载
         now_click_date = dat; //标记当前点击所在位置日期
         add_table_tr(dat);
+    }else {
+        t = 1;
+        click_update_background_color(nowDate.getDate());
     };
 };
 
