@@ -38,28 +38,33 @@ onmessage = function (e) {
     // alert(class_list);
 };
 
-function calculate_tigme_sum(curYear, curMonth) {
-    if (curMonth.length == 1){
-        curMonth = '0'+curMonth
-    }
-    var keys = Object.keys(class_dict);
-    var now_date = curYear + '-' + curMonth;
-    for (i = 0; i < keys.length; i++) {
-        if (keys[i].indexOf(now_date) != -1) {
-            alert(class_dict[keys[i]])
-        }
-    }
-
-
+function month_time_sum(curYear, curMonth) {
+    //显示日历时请求这个月的总共上课时间
+    var min_month = ajax_req('/get_mounth_class_minutes',{'curYear':curYear,'curMonth':curMonth,'uid':uid});
+    return min_month['min']
 };
 
+function ajax_req(url,data) {
+    var result;
+    $.ajax({
+        async: false,   //同步请求
+        type : "POST",
+        url : url,
+        dataType:"json",
+        data: data, //"{'curYear':"+curYear+",'curMonth':"+curMonth+",'uid':"+uid+"}",
+        success : function(da) {
+            result=da;
+        }
+    });
+    return result
+}
 
 /*显示日历*/
 function showCld(year, month, firstDay) {
     var i;
     var tagClass = "";
     var nowDate = new Date();
-
+    clear_table();//先清课表table
     var days;//从数组里取出该月的天数
     if (month == 2) {
         if (isLeap(year)) {
@@ -70,24 +75,26 @@ function showCld(year, month, firstDay) {
     } else {
         days = monthDay[month - 1];
     }
-
+    min_month = month_time_sum(year,month);
     /*当前显示月份添加至顶部*/
-    var topdateHtml = year + "年" + month + "月";
+    var topdateHtml = year + "年" + month + "月"+'('+min_month+'分钟)';
     var topDate = document.getElementById('topDate');
     topDate.innerHTML = topdateHtml;
-
     /*添加日期部分*/
     var tbodyHtml = '<tr>';
     for (i = 0; i < firstDay; i++) {//对1号前空白格的填充
         tbodyHtml += "<td></td>";
     }
     var changLine = firstDay;
+    var now_month = true;
     for (i = 1; i <= days; i++) {//每一个日期的填充
-         var dat = year + '-' + (Array(2).join(0) + month).slice(-2) + '-' + (Array(2).join(0) + i).slice(-2); //格式化这一天的日期，接下来作为key取值
+        var dat = year + '-' + (Array(2).join(0) + month).slice(-2) + '-' + (Array(2).join(0) + i).slice(-2); //格式化这一天的日期，接下来作为key取值
+        console.log(year,month);
         if (year == nowDate.getFullYear() && month == nowDate.getMonth() + 1 && i == nowDate.getDate()) {
             tagClass = "curDate";//当前日期对应格子
             now_click_date = dat; //标记当前所在位置日期
-            add_table_tr(dat)  //时间是今天日期 先把今天的课展现出来
+            add_table_tr(dat);  //时间是今天日期 先把今天的课展现出来
+            now_month = false; // 如果找到今天日期，则代表不是上一个月或者下一个月翻页
         } else if (class_dict.hasOwnProperty(dat)) {  //将上过课的日期标记红色,(Array(2).join(0)+month).slice(-2) ：将单位数变成双位
             tagClass = "haveclass"
         } else {
@@ -107,6 +114,14 @@ function showCld(year, month, firstDay) {
     tbodyHtml += "</tr>";
     var tbody = document.getElementById('tbody');
     tbody.innerHTML = tbodyHtml;
+    if (now_month){//翻页时候默认展示当前月份1号
+        t = 1;
+        click_update_background_color(1);
+        var dat = year + '-' + (Array(2).join(0) + month).slice(-2) + '-' + '01';
+        clear_table();//先清空表数据，再重新加载
+        now_click_date = dat; //标记当前点击所在位置日期
+        add_table_tr(dat);
+    };
 };
 
 function add_event(date) {
@@ -124,16 +139,20 @@ function add_event(date) {
 var t=1;
 function click_update_background_color(x){
     //日期点击后改变背景色
- // 这个是判断第一次点击
+    // 这个是判断第一次点击
   if(x==1&&t==1){
         document.getElementById(x).style.background="rgba(67,101,87,0.29)";
   }
    // 这个判断是防止重复点击
-  else if(x!=t){
-        document.getElementById(t).style.background="transparent";
-        document.getElementById(x).style.background="rgba(67,101,87,0.29)";
+  else if (x != t) {
+      try {
+          document.getElementById(t).style.background = "transparent";
+      } catch (e) {
+          console.log(e)
+      }
+      document.getElementById(x).style.background = "rgba(67,101,87,0.29)";
   }
-  t=x;
+    t = x;
 }
 
 function nextMonth() {
@@ -180,7 +199,8 @@ function add_table_tr(dat=null) {
         if (time_diff){
             $("#news_table").append(
                 '<tr>' +
-                '<td style="white-space: nowrap;text-align:center;width: 80px;"><input style="font-size: 15px;background:rgba(233,15,5,0.71);" type="button" id="item_del" value="删除" itemid="'+item[0]+'" itkey="'+dat+'" onclick="delete_one_class(this)"></th>' +
+                '<td style="white-space: nowrap;text-align:center;width: 80px;"><input style="font-size: 15px;background:rgba(233,15,5,0.71);" type="button" id="item_del" value="删除" itemid="'+item[0]+'" itkey="'+dat+'" onclick="delete_one_class(this)">' +
+                                                                                '<input style="font-size: 15px;background:rgba(233,15,5,0.71);" type="button" id="fix" value="修改" itemid="'+item[0]+'" data="'+item+'" itkey="'+dat+'"></th>' +
                 '<td style="white-space: nowrap;text-align:center;width: 200px;color: #c7f8cf" >' + item[3].split(' ')[1] + '</td>' +
                 '<td style="white-space: nowrap;text-align:center;width: 200px;color: #c7f8cf" >' + item[4].split(' ')[1] + '</td>' +
                 '<td style="hite-space: nowrap;text-align:center;width: 100px;color: #38f811" >' + time_diff + '</td>' +
@@ -188,6 +208,8 @@ function add_table_tr(dat=null) {
                 '</tr>');
         }
     }
+    var data_list = now_click_date.split('-');  //重新加载日历月度总分钟数量
+    update_month_title(data_list[0],data_list[1]);
 }
 
 //使用Jquery 删除,单行
@@ -195,9 +217,12 @@ function delete_one_class(obj){
     itkey = obj.getAttribute("itkey");
     itemid = obj.getAttribute("itemid");
     $(obj).parent().parent().parent()[0].removeChild($(obj).parent().parent()[0]);  // 删除一行
-    $.post('deloneclass',{'itemid':itemid,'uid':uid},function(resultJSONObject){
-        class_dict = resultJSONObject
-    })//发送需要删除的数据到接口
+    class_dict = ajax_req('deloneclass',{'itemid':itemid,'uid':uid});//发送需要删除的数据到接口
+    var data_list = now_click_date.split('-');  //重新加载日历月度总分钟数量
+    update_month_title(data_list[0],data_list[1]);
+    // $.post('deloneclass',{'itemid':itemid,'uid':uid},function(resultJSONObject){
+    //     class_dict = resultJSONObject
+    // })//发送需要删除的数据到接口
 }
 
 
@@ -279,6 +304,14 @@ function submin_add_class(){
     }
 }
 
+function update_month_title(year,month) {
+    min_month = month_time_sum(year,month);
+    /*当前显示月份添加至顶部*/
+    console.log(min_month,year,month);
+    var topdateHtml = year + "年" + month + "月"+'('+min_month+'分钟)';
+    var topDate = document.getElementById('topDate');
+    topDate.innerHTML = topdateHtml;
+}
 
 function alert_add_scuueed(){
     //点击确定后 提示添加成功

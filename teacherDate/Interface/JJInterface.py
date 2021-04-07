@@ -7,6 +7,9 @@
 import os
 import os
 import sys
+
+from Interface.dataFormat import sum_month_class_min
+
 curPath = os.path.abspath(os.path.dirname(__file__))
 print(curPath)
 rootPath = os.path.split(curPath)[0] + '/'
@@ -44,15 +47,20 @@ def verification():
     print('-*-*-',flag)
     return jsonify(flag)
 
-# @app.route('/get_mounth_class_minutes', methods=['post'])
-# def get_mounth_class_minutes():
-#     uid = request.form.get('uid')
-#     curYear = request.form.get('curYear')
-#     curMonth = request.form.get('curMonth')
-#     if len(curMonth) == 1:
-#         curMonth = '0'+curMonth
-#     class_list = sqllitDBHelper().select_user_news(uid, curYear+'-'+curMonth)
-#     return jsonify(class_list)
+@app.route('/get_mounth_class_minutes', methods=['post'])
+def get_mounth_class_minutes():
+    """
+    获取月度总共分钟数
+    :return:
+    """
+    uid = request.form.get('uid')
+    curYear = request.form.get('curYear')
+    curMonth = request.form.get('curMonth')
+    if len(curMonth) < 2:
+        curMonth = f'0{curMonth}'
+    class_list = sqllitDBHelper().select_user_news(uid, curYear+'-'+curMonth)
+    min = sum_month_class_min(class_list)
+    return jsonify({'min':min})
 
 @app.route('/getclass', methods=['post','get'])
 def getclass():

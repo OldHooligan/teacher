@@ -112,7 +112,6 @@ class sqllitDBHelper():
         """查询上课记录"""
         cursor = self.conn.cursor()
         sql = f"select * from teachertiming where uid='{uid}' and class_date like '{date_mounth}%';"
-        print(sql)
         data = cursor.execute(sql)
         self.conn.commit()
         li = data.fetchall()
@@ -158,4 +157,4 @@ if __name__ == '__main__':
     # sqllitDBHelper().insert_user_data(66666,'zhang','sssss')
     # sqllitDBHelper().check_login('1', '1')
     # sqllitDBHelper().insert_data(1, datetime.datetime.now(), datetime.datetime.now(), datetime.datetime.now())
-    sqllitDBHelper().select_user_news(1)
+    sqllitDBHelper().select_user_news(66666, '2021-04')
