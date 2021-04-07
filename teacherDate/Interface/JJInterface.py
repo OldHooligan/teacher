@@ -5,21 +5,16 @@
 # @File    : JJInterface.py
 # @Software: PyCharm
 import os
-import os
 import sys
-
-from Interface.dataFormat import sum_month_class_min
-
 curPath = os.path.abspath(os.path.dirname(__file__))
 print(curPath)
 rootPath = os.path.split(curPath)[0] + '/'
 print(rootPath)
 sys.path.append(os.path.split(rootPath)[0])
-
 from flask import Flask, request, jsonify, render_template
-
 # 创建一个服务
 from DB.JJSqlite import sqllitDBHelper
+from Interface.dataFormat import sum_month_class_min
 
 app = Flask(__name__, template_folder='../templates', static_folder='../static')
 
