@@ -55,12 +55,13 @@ td{
 }
 
 #classList{
+    margin: 10px;
     width: 1020px;
     height: 700px;
     position: relative;
     top: 521px;
-    margin-left: auto;
-    margin-right: auto;
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
 }
 
 

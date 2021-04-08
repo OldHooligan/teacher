@@ -202,7 +202,7 @@ function add_table_tr(dat=null) {
             $("#news_table").append(
                 '<tr>' +
                 '<td style="white-space: nowrap;text-align:center;width: 80px;"><input style="font-size: 15px;background:rgba(233,15,5,0.71);" type="button" id="item_del" value="删除" itemid="'+item[0]+'" itkey="'+dat+'" onclick="delete_one_class(this)">' +
-                                                                                '<input style="font-size: 15px;background:rgba(233,15,5,0.71);" type="button" id="fix" value="修改" itemid="'+item[0]+'" data="'+item+'" itkey="'+dat+'"></th>' +
+                                                                                '<input style="font-size: 15px;background:rgba(233,15,5,0.71);" type="button" id="fix"     value="修改" data="'+item+'" itkey="'+dat+'" onclick ="fix_one_class(this)"></th>' +
                 '<td style="white-space: nowrap;text-align:center;width: 200px;color: #c7f8cf" >' + item[3].split(' ')[1] + '</td>' +
                 '<td style="white-space: nowrap;text-align:center;width: 200px;color: #c7f8cf" >' + item[4].split(' ')[1] + '</td>' +
                 '<td style="hite-space: nowrap;text-align:center;width: 100px;color: #38f811" >' + time_diff + '</td>' +
@@ -225,6 +225,12 @@ function delete_one_class(obj){
     // $.post('deloneclass',{'itemid':itemid,'uid':uid},function(resultJSONObject){
     //     class_dict = resultJSONObject
     // })//发送需要删除的数据到接口
+}
+function fix_one_class(obj){
+    itkey = obj.getAttribute("itkey");
+    data = obj.getAttribute("data");
+    console.log(itkey,'/',data)
+
 }
 
 
