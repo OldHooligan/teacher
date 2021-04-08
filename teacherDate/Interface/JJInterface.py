@@ -15,7 +15,6 @@ from flask import Flask, request, jsonify, render_template
 # 创建一个服务
 from DB.JJSqlite import sqllitDBHelper
 from Interface.dataFormat import sum_month_class_min
-
 app = Flask(__name__, template_folder='../templates', static_folder='../static')
 
 
@@ -39,7 +38,7 @@ def verification():
     pasd = request.form.get('p')
     print(user, pasd)
     flag = sqllitDBHelper().check_login(user,pasd)
-    print('-*-*-',flag)
+    print('-*-*-', flag)
     return jsonify(flag)
 
 @app.route('/get_mounth_class_minutes', methods=['post'])

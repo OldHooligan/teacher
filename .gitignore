@@ -1,5 +1,5 @@
-*.pyc
+
 *.xml
-*.pyc
 *.iml
-*.db
+*.pyc
+teacherDate/DB/date.db

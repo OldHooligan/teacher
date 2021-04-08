@@ -60,7 +60,15 @@ input{
     margin: 0;   
 }
 
-
+#ba{
+    position:fixed;
+    bottom:0px;
+    left:45%;
+}
+#ba_ali{
+    color: white;
+    font-size: 1px;
+}
 
 #subim{
     text-align:center;
