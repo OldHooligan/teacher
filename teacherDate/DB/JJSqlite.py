@@ -69,7 +69,7 @@ class sqllitDBHelper():
 
     def check_login(self, user, passwd):
         """验证账户"""
-        user = user.replace('"','‘').replace("'",'‘')
+        user = user.replace('"', '‘').replace("'", '‘')
         passwd = passwd.replace('"', '‘').replace("'", '‘')
         cursor = self.conn.cursor()
         sql = f"select * from teacher where name='{user}';"
@@ -80,11 +80,11 @@ class sqllitDBHelper():
         try:
             pw = data[0][3]
             if passwd == pw:
-                return {'state':True,'uid':data[0][1],'name':data[0][2]}
+                return {'state': True, 'uid': data[0][1], 'name': data[0][2]}
             else:
-                return {'state':False}
+                return {'state': False}
         except:
-            return {'state':False}
+            return {'state': False}
 
     def insert_data(self, uid, startTime, endTime, class_date, note=None):
         # 插入一条上课记录
@@ -101,7 +101,7 @@ class sqllitDBHelper():
         # 提交事物
         self.conn.commit()
 
-    def sql_filter(self,note):
+    def sql_filter(self, note):
         note = note.replace(",", "，")
         dirty_stuff = ["\"", "\\", "/", "*", "'", "=", "-", "#", ";", "<", ">", "+", "%", "$", "(", ")", "%", "@", "!"]
         for stuff in dirty_stuff:
@@ -126,7 +126,7 @@ class sqllitDBHelper():
         self.conn.commit()
         print(f'itemid:{itemid}删除成功！')
 
-    def create_class_data(self,data_list):
+    def create_class_data(self, data_list):
         """将查询出来的每日课程结果进行按天归类"""
         redeal_list = {}
         for item in data_list:
