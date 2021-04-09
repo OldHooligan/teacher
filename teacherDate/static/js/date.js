@@ -201,8 +201,8 @@ function add_table_tr(dat=null) {
         if (time_diff){
             $("#news_table").append(
                 '<tr>' +
-                '<td style="white-space: nowrap;text-align:center;width: 80px;"><input style="font-size: 15px;background:rgba(233,15,5,0.71);" type="button" id="item_del" value="删除" itemid="'+item[0]+'" itkey="'+dat+'" onclick="delete_one_class(this)">' +
-                                                                                '<input style="font-size: 15px;background:rgba(233,15,5,0.71);" type="button" id="fix"     value="修改" data="'+item+'" itkey="'+dat+'" onclick ="fix_one_class(this)"></th>' +
+                '<td style="white-space: nowrap;text-align:center;width: 80px;"><input style="font-size: 15px;background:rgba(233,15,5,0.71);" type="button" id="item_del'+item[0]+'"  value="删除" itemid="'+item[0]+'" itkey="'+dat+'" onclick="delete_one_class(this)">' +
+                                                                                '<input style="font-size: 15px;background:rgba(233,15,5,0.71);" type="button" id="fix" value="修改" data="'+item+'" itemid="'+item[0]+'" itkey="'+dat+'" onclick ="fix_one_class(this)"></th>' +
                 '<td style="white-space: nowrap;text-align:center;width: 200px;color: #c7f8cf" >' + item[3].split(' ')[1] + '</td>' +
                 '<td style="white-space: nowrap;text-align:center;width: 200px;color: #c7f8cf" >' + item[4].split(' ')[1] + '</td>' +
                 '<td style="hite-space: nowrap;text-align:center;width: 100px;color: #38f811" >' + time_diff + '</td>' +
@@ -227,10 +227,18 @@ function delete_one_class(obj){
     // })//发送需要删除的数据到接口
 }
 function fix_one_class(obj){
+    // 点击修改按钮
     itkey = obj.getAttribute("itkey");
     data = obj.getAttribute("data");
-    console.log(itkey,'/',data)
-
+    itemId = obj.getAttribute("itemid");
+    console.log(itkey,'/',data);
+    var currentBtn = document.getElementById("add_class");
+    currentBtn.style.visibility = "visible"; //显示添加div
+    var data_list = data.split(",");
+    $("#select_time_1").val(data_list[3].split(" ")[1]+' - '+data_list[4].split(" ")[1]);
+    $("#select_time_2").val(data_list[5]);
+    $("#select_time_3").val("fix");
+    $("#select_time_4").val(itemId);
 }
 
 
@@ -278,6 +286,8 @@ function click_add() {
     currentBtn.style.visibility = "visible"; //显示添加div
     $("#select_time_1").val("");
     $("#select_time_2").val("");
+    $("#select_time_3").val("add");
+    $("#select_time_4").val("");
 }
 
 function hidden_add_class() {
@@ -299,18 +309,24 @@ function clear_table() {
     }
 }
 function submin_add_class(){
-    //点击确定按钮，将添加的课程数据发送到后台
+    //点击确定添加按钮，将添加的课程数据发送到后台
     var start_end = document.getElementById('select_time_1').value;
+    var state = document.getElementById('select_time_3').value;
+    var itemid = document.getElementById('select_time_4').value;
     if (start_end != ""){
         var note = document.getElementById('select_time_2').value;
         $.post('insert',{'start_end':start_end,'note':note,'date':now_click_date,'uid':uid},function(resultJSONObject){
             class_dict = resultJSONObject;
             add_table_tr(now_click_date);
+            if (state=="fix"){  //修改后将原有的删除
+               document.getElementById('item_del' + itemid).onclick();
+        };
         });
         hidden_add_class();
         alert_add_scuueed();
     }
-}
+
+};
 
 function update_month_title(year,month) {
     min_month = month_time_sum(year,month);
