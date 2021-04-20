@@ -27,6 +27,13 @@ def everything():
     """
     return render_template('index.html')
 
+@app.route('/', methods=['GET'])
+def login():
+    """
+    请求登录页
+    :return:
+    """
+    return render_template('index.html')
 
 @app.route('/verification', methods=['post'])
 def verification():
