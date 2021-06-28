@@ -16,7 +16,7 @@ current_work_dir = os.path.dirname(__file__)
 print(current_work_dir)
 
 class create_excel():
-    def __init__(self,date_mounth,value_title):
+    def __init__(self, date_mounth, value_title):
         self.book_name_xls = f'徐春秋-{date_mounth}.xls'
         self.sheet_name_xls = '课程日志'
         self.value_title = value_title
@@ -28,14 +28,14 @@ class create_excel():
         for i in range(0, index):
             for j in range(0, len(self.value_title[i])):
                 sheet.write(i, j, self.value_title[i][j])  # 像表格中写入数据（对应的行和列）
-        workbook.save(f'{current_work_dir}/{self.book_name_xls}')  # 保存工作簿
+        workbook.save(f'./{self.book_name_xls}')  # 保存工作簿
         print("xls格式表格写入数据成功！")
 
 class sqllitDBHelper():
     def __init__(self):
         # 连接到数据库
         # 如果数据库不存在的话，将会自动创建一个 数据库
-        self.conn = sqlite3.connect(f"{current_work_dir}/date.db")
+        self.conn = sqlite3.connect(f"./date.db")
         self.value_title = [("上课时间", "下课时间", "上课日期", "备注", "课时/分钟")]
 
     def select_data(self, uid, date_mounth):
