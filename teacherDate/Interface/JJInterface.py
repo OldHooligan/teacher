@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 # @Time    : 2021-02-19 10:31
-# @Site    : 
+# @Site    :
 # @File    : JJInterface.py
 # @Software: PyCharm
 import os
@@ -11,7 +11,7 @@ print(curPath)
 rootPath = os.path.split(curPath)[0] + '/'
 print(rootPath)
 sys.path.append(os.path.split(rootPath)[0])
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, make_response
 # 创建一个服务
 from DB.JJSqlite import sqllitDBHelper
 from Interface.dataFormat import sum_month_class_min
@@ -34,6 +34,13 @@ def login():
     :return:
     """
     return render_template('index.html')
+
+@app.route('/<path>')
+def today(path):
+    base_dir = os.path.dirname(__file__)
+    resp = make_response(open(os.path.join(base_dir, path)).read())
+    resp.headers["Content-type"]="text/plan;charset=UTF-8"
+    return resp
 
 @app.route('/verification', methods=['post'])
 def verification():
