@@ -290,6 +290,11 @@ function click_add() {
     $("#select_time_4").val("");
 }
 
+function click_down_load() {
+    //点击下载 请求下载页面
+    window.location.href="/downloadxls?uid="+uid+'&date_mounth='+now_click_date;
+}
+
 function hidden_add_class() {
     //点击取消按钮后将添加课程隐藏
      var currentBtn = document.getElementById("add_class");

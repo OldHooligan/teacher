@@ -6,17 +6,21 @@
 # @Software: PyCharm
 import os
 import sys
+from urllib.parse import quote
+
+from DB.downLoadExcel import sqlDBHelper
+
 curPath = os.path.abspath(os.path.dirname(__file__))
 print(curPath)
 rootPath = os.path.split(curPath)[0] + '/'
 print(rootPath)
 sys.path.append(os.path.split(rootPath)[0])
-from flask import Flask, request, jsonify, render_template, make_response
+from flask import Flask, request, jsonify, render_template, make_response, send_from_directory, send_file
 # 创建一个服务
 from DB.JJSqlite import sqllitDBHelper
 from Interface.dataFormat import sum_month_class_min
 app = Flask(__name__, template_folder='../templates', static_folder='../static')
-
+dl = sqlDBHelper()
 
 # 创建一个接口 指定路由和请求方法 定义处理请求的函数
 @app.route('/login', methods=['GET'])
@@ -116,7 +120,7 @@ def insert():
     :return:
     """
     start_end = request.form.get('start_end')
-    start_time_list  = start_end.split(' - ')
+    start_time_list = start_end.split(' - ')
     note = request.form.get('note')
     now_click_date = request.form.get('date')
     uid = request.form.get('uid')
@@ -124,6 +128,18 @@ def insert():
     db.insert_data(uid, f'{now_click_date} {start_time_list[0]}', f'{now_click_date} {start_time_list[1]}', now_click_date, note)
     class_list = db.select_user_news(uid)
     return jsonify(class_list)
+
+@app.route("/downloadxls", methods=['get'])
+def download_file():
+    # 需要知道2个参数, 第1个参数是本地目录的path, 第2个参数是文件名(带扩展名)
+    uid = request.args.get('uid')
+    date_mounth = request.args.get('date_mounth')[:-3]
+    directory, filename = dl.select_data(uid, date_mounth)
+    print('*', directory, filename)
+    download_file_name = quote(filename)
+    rv = send_file(directory, as_attachment=True, attachment_filename=download_file_name)
+    rv.headers['Content-Disposition'] = "; filename*=utf-8''%s" % (download_file_name)
+    return rv
 
 if __name__ == '__main__':
     # 启动服务 指定主机和端口
