@@ -7,9 +7,6 @@
 import os
 import sys
 from urllib.parse import quote
-
-from DB.downLoadExcel import sqlDBHelper
-
 curPath = os.path.abspath(os.path.dirname(__file__))
 print(curPath)
 rootPath = os.path.split(curPath)[0] + '/'
@@ -20,6 +17,7 @@ from flask import Flask, request, jsonify, render_template, make_response, send_
 from DB.JJSqlite import sqllitDBHelper
 from Interface.dataFormat import sum_month_class_min
 app = Flask(__name__, template_folder='../templates', static_folder='../static')
+from DB.downLoadExcel import sqlDBHelper
 dl = sqlDBHelper()
 
 # 创建一个接口 指定路由和请求方法 定义处理请求的函数
