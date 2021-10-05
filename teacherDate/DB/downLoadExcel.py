@@ -104,10 +104,10 @@ class sqlDBHelper():
         # 连接到数据库
         # 如果数据库不存在的话，将会自动创建一个 数据库
         self.conn = sqlite3.connect(f"{current_work_dir}/date.db", check_same_thread=False)
-        self.value_title = [('日期', '星期', '上课时间', '课时（min）', "备注")]
 
     def select_data(self, uid, date_mounth):
         """查询上课记录"""
+        value_title = [('日期', '星期', '上课时间', '课时（min）', "备注")]
         directory = current_work_dir # 假设在当前目录
         cursor = self.conn.cursor()
         sql = f"select startTime,endTime,class_date,note from teachertiming where uid='{uid}' and class_date like '{date_mounth}%' order by note;"
@@ -122,12 +122,12 @@ class sqlDBHelper():
             end_date = datetime_toCustStr(dil_str_toDatetime(item[1]), '%H:%M')
             time_detail = substract_Time_dil(item[0], item[1]).get('min')
             vl = [classdate, week, f'{satrt_date}-{end_date}', time_detail, item[3]]
-            self.value_title.append(vl)
+            value_title.append(vl)
         user_name = self.select_teacher_news(uid)
         book_name_xls = f'{user_name}-{date_mounth}.xls'
         dir = f'{directory}/{uid}'
         path = f'{dir}/{book_name_xls}'
-        create_excel(uid, self.value_title).write_excel_xls(path)
+        create_excel(uid, value_title).write_excel_xls(path)
         return path, book_name_xls
 
     def select_teacher_news(self, uid):
