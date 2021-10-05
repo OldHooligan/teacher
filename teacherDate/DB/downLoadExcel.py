@@ -7,6 +7,7 @@
 import os
 import sqlite3
 import xlwt
+from pathlib import Path
 from XZGUtil.timeUtil import substract_Time_dil, str_totime, datetime_toChinStr, dil_str_toDatetime, datetime_toCustStr, get_week_day
 current_work_dir = os.path.dirname(__file__)
 print(current_work_dir)
@@ -18,7 +19,9 @@ class create_excel():
         self.uid = uid
 
     def write_excel_xls(self, path):
-        if os.path.exists(f'{current_work_dir}\{self.uid}'):
+        pat = Path(f'{current_work_dir}\{self.uid}')
+        # print(pat.exists())
+        if pat.exists():
             self.cleardir(f'{current_work_dir}\{self.uid}')
         else:
             os.makedirs(f'{current_work_dir}\{self.uid}')
