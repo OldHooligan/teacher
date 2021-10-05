@@ -21,7 +21,7 @@ class create_excel():
         if os.path.exists(f'{current_work_dir}\{self.uid}'):
             self.cleardir(f'{current_work_dir}\{self.uid}')
         else:
-            os.mkdir(f'{current_work_dir}\{self.uid}')
+            os.makedirs(f'{current_work_dir}\{self.uid}')
         index = len(self.value_title)  # 获取需要写入数据的行数
         workbook = xlwt.Workbook()  # 新建一个工作簿
         style, style2 = self.get_style()
