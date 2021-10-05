@@ -19,12 +19,12 @@ class create_excel():
         self.uid = uid
 
     def write_excel_xls(self, path):
-        pat = Path(f'{current_work_dir}/{self.uid}')
+        # pat = Path(f'{current_work_dir}/{self.uid}')
         # print(pat.exists())
-        if pat.exists():
-            self.cleardir(f'{current_work_dir}/{self.uid}')
-        else:
-            os.makedirs(f'{current_work_dir}/{self.uid}')
+        # if pat.exists():
+        self.cleardir(path)
+        # else:
+        #     os.makedirs(f'{current_work_dir}/{self.uid}')
         index = len(self.value_title)  # 获取需要写入数据的行数
         workbook = xlwt.Workbook()  # 新建一个工作簿
         style, style2 = self.get_style()
