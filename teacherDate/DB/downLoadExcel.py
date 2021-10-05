@@ -54,11 +54,13 @@ class create_excel():
         :param path:
         :return:
         '''
-        if not os.path.exists(path):
+        pat = Path(path)
+        if not pat.exists():
             return
         for i in os.listdir(path):
             path_file = os.path.join(path, i)
             if os.path.isfile(path_file):
+                print('开始删除', path_file)
                 os.remove(path_file)
             else:
                 for f in os.listdir(path_file):
