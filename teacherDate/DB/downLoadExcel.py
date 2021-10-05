@@ -55,6 +55,7 @@ class create_excel():
         :return:
         '''
         pat = Path(path)
+        print('pat.exists()',pat.exists())
         if not pat.exists():
             return
         for i in os.listdir(path):
