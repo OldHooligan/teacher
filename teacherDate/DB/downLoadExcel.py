@@ -8,6 +8,7 @@ import os
 import sqlite3
 import xlwt
 from pathlib import Path
+import shutil
 from XZGUtil.timeUtil import substract_Time_dil, str_totime, datetime_toChinStr, dil_str_toDatetime, datetime_toCustStr, get_week_day
 current_work_dir = os.path.dirname(__file__)
 print(current_work_dir)
@@ -19,12 +20,7 @@ class create_excel():
         self.uid = uid
 
     def write_excel_xls(self, path):
-        # pat = Path(f'{current_work_dir}/{self.uid}')
-        # print(pat.exists())
-        # if pat.exists():
-        self.cleardir(f'{current_work_dir}/{self.uid}')
-        # else:
-        #     os.makedirs(f'{current_work_dir}/{self.uid}')
+        shutil.rmtree(f'{current_work_dir}/{self.uid}')  #递归删除非空文件夹
         index = len(self.value_title)  # 获取需要写入数据的行数
         workbook = xlwt.Workbook()  # 新建一个工作簿
         style, style2 = self.get_style()
