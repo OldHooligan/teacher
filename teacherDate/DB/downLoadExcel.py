@@ -22,7 +22,7 @@ class create_excel():
         # pat = Path(f'{current_work_dir}/{self.uid}')
         # print(pat.exists())
         # if pat.exists():
-        self.cleardir(path)
+        self.cleardir(f'{current_work_dir}/{self.uid}')
         # else:
         #     os.makedirs(f'{current_work_dir}/{self.uid}')
         index = len(self.value_title)  # 获取需要写入数据的行数
