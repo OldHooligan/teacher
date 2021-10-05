@@ -20,7 +20,8 @@ class create_excel():
         self.uid = uid
 
     def write_excel_xls(self, path):
-        shutil.rmtree(f'{current_work_dir}/{self.uid}')  #递归删除非空文件夹
+        if self.uid:
+            shutil.rmtree(f'{current_work_dir}/{self.uid}')  #递归删除非空文件夹
         os.makedirs(f'{current_work_dir}/{self.uid}')
         index = len(self.value_title)  # 获取需要写入数据的行数
         workbook = xlwt.Workbook()  # 新建一个工作簿
