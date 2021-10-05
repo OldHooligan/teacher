@@ -61,7 +61,8 @@ class create_excel():
             path_file = os.path.join(path, i)
             if os.path.isfile(path_file):
                 print('开始删除', path_file)
-                os.remove(path_file)
+                # os.remove(path_file)
+                os.system('rm -rf ' + path_file)
             else:
                 for f in os.listdir(path_file):
                     path_file2 = os.path.join(path_file, f)
