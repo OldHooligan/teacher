@@ -292,7 +292,7 @@ function click_add() {
 
 function click_down_load() {
     //点击下载 请求下载页面
-    window.location.href="/downloadxls?uid="+uid+'&date_mounth='+now_click_date;
+    window.location.href="/downloadxls?uid="+uid+'&date_mounth='+now_click_date+'&v=' + (new Date().getTime());
 }
 
 function hidden_add_class() {
