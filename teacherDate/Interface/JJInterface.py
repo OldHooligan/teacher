@@ -45,8 +45,7 @@ def today(path):
         resp.headers["Content-type"] = "text/plan;charset=UTF-8"
         return resp
     except:
-        re = jsonify({"msg": False})
-        return 
+        return render_template('index.html')
 
 @app.route('/verification', methods=['post'])
 def verification():
