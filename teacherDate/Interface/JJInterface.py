@@ -37,12 +37,12 @@ def login():
     """
     return render_template('index.html')
 
-@app.route('/<path>')
-def today(path):
-    base_dir = os.path.dirname(__file__)
-    resp = make_response(open(os.path.join(base_dir, path)).read())
-    resp.headers["Content-type"]="text/plan;charset=UTF-8"
-    return resp
+# @app.route('/<path>')
+# def today(path):
+#     base_dir = os.path.dirname(__file__)
+#     resp = make_response(open(os.path.join(base_dir, path)).read())
+#     resp.headers["Content-type"]="text/plan;charset=UTF-8"
+#     return resp
 
 @app.route('/verification', methods=['post'])
 def verification():
