@@ -60,7 +60,7 @@ class sqllitDBHelper():
         user = user.replace('"', '‘').replace("'", '‘')
         passwd = passwd.replace('"', '‘').replace("'", '‘')
         cursor = self.conn.cursor()
-        d_now = timeUtil.datetime_toString_detail(datetime.datetime.now())
+        d_now = timeUtil.datetime_toStr_dil(datetime.datetime.now())
         sql = f"insert into teacher(uid,name,passwd,create_date) values ({uid},'{user}','{passwd}','{d_now}');"
         print(sql)
         cursor.execute(sql)
@@ -94,7 +94,7 @@ class sqllitDBHelper():
         note = self.sql_filter(note)
         print(uid, startTime, endTime, class_date, note)
         cursor = self.conn.cursor()
-        d_now = timeUtil.datetime_toString_detail(datetime.datetime.now())
+        d_now = timeUtil.datetime_toStr_dil(datetime.datetime.now())
         sql = f"insert into teachertiming(uid,create_date,startTime,endTime,class_date,note) values ({uid},'{d_now}','{startTime}','{endTime}','{class_date}','{note}');"
         print(sql)
         cursor.execute(sql)
